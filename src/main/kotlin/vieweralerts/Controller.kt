@@ -19,6 +19,8 @@ import java.util.*
 
 class Controller : Initializable {
 
+    lateinit var settingsHandler: SettingsHandler
+
     val allUsersList = observableArrayList<String>()
     val newUsersList = observableArrayList<String>()
 
@@ -74,7 +76,7 @@ class Controller : Initializable {
     fun settingsMenuPressed(event: ActionEvent) {
         try {
             val settings = promptForSettings()
-            handleSettings(settings)
+            settingsHandler.handleSettings(settings)
         } catch (e: SettingsCancelException) {
         }
     }
