@@ -62,6 +62,8 @@ class Controller : Initializable {
             }
             if (added)
                 flashAlert()
+            if (newUsersList.isEmpty())
+                stopFlashing()
         })
     }
 

@@ -6,6 +6,7 @@ import com.beust.klaxon.Parser
 import javafx.application.Application
 import javafx.application.Application.launch
 import javafx.application.Platform.runLater
+import javafx.beans.property.StringProperty
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -31,9 +32,13 @@ fun main(args: Array<String>) = launch(DisplayApplication::class.java, *args)
 fun loader(name: String) = FXMLLoader(ClassLoader.getSystemResource(name))
 
 var mainController: Controller? = null
+var primaryTitle: StringProperty? = null
 
 class DisplayApplication : Application() {
     override fun start(primaryStage: Stage) {
+        primaryTitle = primaryStage.titleProperty()
+        primaryTitle!!.value = "Viewer Alerts"
+
         val settings = loadSettings(SETTINGS_PATH) ?: promptForSettings()
 
         val fxmlLoader = loader("main.fxml")
@@ -56,6 +61,7 @@ fun promptForSettings(): Settings {
     controller.stage = settingsStage
 
     settingsStage.scene = Scene(root)
+    settingsStage.title = "Settings"
     settingsStage.showAndWait()
 
     if (controller.okayClicked) {
@@ -89,6 +95,7 @@ fun handleSettings(settings: Settings) {
     if (mainController != null) {
         runningThread?.interrupt()
         mainController!!.allUsersList.clear()
+        primaryTitle?.value = "Viewer Alerts - ${settings.channel}"
         runningThread = startLooperThread(settings.channel, mainController!!.allUsersList, settings.sleepDuration)
     }
 }
