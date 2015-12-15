@@ -75,12 +75,10 @@ fun promptForSettings(): Settings {
 
 fun loadSettings(path: String): Settings? {
     try {
-        val raw = Yaml().load(File(path).readText())
-        if (raw is Map<*, *>) {
-            val channel = raw["channel"] as String
-            val sleepDuration = raw["sleep_duration"] as Int
-            return Settings(channel, sleepDuration)
-        }
+        val raw = Yaml().load(File(path).readText()) as Map<*, *>
+        val channel = raw["channel"] as String
+        val sleepDuration = raw["sleep_duration"] as Int
+        return Settings(channel, sleepDuration)
     } catch (e: Exception) {
         if (e is FileNotFoundException || e is YAMLException || e is ClassCastException)
             log.warning("Failed to load settings: $e")
