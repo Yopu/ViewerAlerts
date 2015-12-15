@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="10.0" xmlns="http://javafx.com/javafx/null"
+      fx:controller="vieweralerts.SettingsController">
+    <VBox>
+        <Label text="Twitch Channel"/>
+        <TextField fx:id="channelTextField" promptText="Channel"/>
+    </VBox>
+    <VBox>
+        <Label text="Update Delay (millis)"/>
+        <Spinner fx:id="delaySpinner" editable="true"/>
+    </VBox>
+    <HBox spacing="10.0">
+        <Button text="Cancel" onAction="#cancelClicked" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        <Button text="Okay" onAction="#okayClicked" defaultButton="true" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+</VBox>

@@ -69,6 +69,14 @@ class Controller : Initializable {
         Platform.exit()
     }
 
+    fun settingsMenuPressed(event: ActionEvent) {
+        try {
+            val settings = promptForSettings()
+            handleSettings(settings)
+        } catch (e: SettingsCancelException) {
+        }
+    }
+
     fun clearButtonPressed(event: ActionEvent) {
         newUsersList.clear()
         stopFlashing()

@@ -6,8 +6,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null" fx:controller="vieweralerts.Controller">
     <MenuBar>
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem onAction="#closeMenuPressed" mnemonicParsing="false" text="Close"/>
+        <Menu text="_File" mnemonicParsing="true">
+            <MenuItem text="_Close" onAction="#closeMenuPressed" mnemonicParsing="true"/>
+            <MenuItem text="_Settings" onAction="#settingsMenuPressed" mnemonicParsing="true"/>
         </Menu>
     </MenuBar>
     <HBox>
