@@ -5,7 +5,6 @@ import javafx.application.Platform
 import javafx.collections.FXCollections.observableArrayList
 import javafx.collections.ListChangeListener
 import javafx.collections.ObservableList
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Button
@@ -69,11 +68,11 @@ class Controller : Initializable {
         })
     }
 
-    fun closeMenuPressed(event: ActionEvent) {
+    fun closeMenuPressed() {
         Platform.exit()
     }
 
-    fun settingsMenuPressed(event: ActionEvent) {
+    fun settingsMenuPressed() {
         try {
             val settings = promptForSettings()
             settingsHandler.handleSettings(settings)
@@ -81,7 +80,7 @@ class Controller : Initializable {
         }
     }
 
-    fun clearButtonPressed(event: ActionEvent) {
+    fun clearButtonPressed() {
         newUsersList.clear()
         stopFlashing()
     }
