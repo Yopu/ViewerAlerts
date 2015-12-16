@@ -13,6 +13,13 @@ import java.util.*
 class SettingsController : Initializable {
 
     var okayClicked = false
+    var channel: String
+        get() = channelTextField.text.toLowerCase()
+        set(value) {
+            channelTextField.text = value
+        }
+    val sleepDuration: Int
+        get() = delaySpinner.value
 
     lateinit var stage: Stage
     @FXML lateinit var channelTextField: TextField

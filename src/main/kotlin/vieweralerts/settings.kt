@@ -23,7 +23,7 @@ fun promptForSettings(): Settings {
     settingsStage.showAndWait()
 
     if (controller.okayClicked) {
-        val settings = Settings(controller.channelTextField.text, controller.delaySpinner.value)
+        val settings = Settings(controller.channel, controller.sleepDuration)
         settings.save(SETTINGS_PATH)
         return settings
     } else {
