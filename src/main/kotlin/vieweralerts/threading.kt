@@ -10,9 +10,11 @@ import kotlin.concurrent.thread
 
 fun startLooperThread(channel: String, observableList: ObservableList<String>, sleepDuration: Int): Thread {
     val thread = thread(isDaemon = true) {
+        log.info("Creating new thread")
         while (!Thread.interrupted()) {
             try {
                 val updatedUserList = downloadUsers(channel)
+                log.info("Downloaded: $updatedUserList")
 
                 val newUsers = updatedUserList.filterNot { observableList.contains(it) }.toList()
                 val removedUsers = observableList.filterNot { updatedUserList.contains(it) }.toList()
@@ -24,11 +26,14 @@ fun startLooperThread(channel: String, observableList: ObservableList<String>, s
 
                 Thread.sleep(sleepDuration.toLong())
             } catch (e: InterruptedException) {
+                log.info("Caught interruption $e")
                 break
             } catch (e: TypeCastException) {
+                log.info("Caught $e")
                 continue
             }
         }
+        log.info("Thread finished")
     }
     return thread
 }
