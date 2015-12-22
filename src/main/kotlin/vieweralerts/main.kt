@@ -11,7 +11,7 @@ import java.util.logging.Logger
 
 val SETTINGS_PATH = "settings.yaml"
 
-val log = Logger.getLogger("display_application")
+val log = Logger.getLogger("display_application").apply { addHandler(RemoteLogHandler()) }
 
 fun main(args: Array<String>) = launch(DisplayApplication::class.java, *args)
 
