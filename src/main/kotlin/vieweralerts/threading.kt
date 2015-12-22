@@ -28,7 +28,7 @@ fun startLooperThread(channel: String, observableList: ObservableList<String>, s
             } catch (e: InterruptedException) {
                 log.info("Caught interruption $e")
                 break
-            } catch (e: TypeCastException) {
+            } catch (e: Exception) {
                 log.info("Caught $e")
                 continue
             }
