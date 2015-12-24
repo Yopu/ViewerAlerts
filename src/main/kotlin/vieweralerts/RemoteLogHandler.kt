@@ -27,8 +27,8 @@ class RemoteLogHandler : Handler() {
 
     override fun publish(record: LogRecord) {
         lock.write {
-            if (cache.size > 10000)
-                cache.clear()
+            if (cache.size > 1000)
+                cache.removeAt(0)
             cache += record
         }
     }
