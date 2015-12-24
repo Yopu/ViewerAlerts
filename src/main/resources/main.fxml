@@ -4,15 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null" fx:controller="vieweralerts.Controller">
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40"
+      fx:controller="vieweralerts.Controller">
     <MenuBar>
-        <Menu text="_File" mnemonicParsing="true">
-            <MenuItem text="_Close" onAction="#closeMenuPressed" mnemonicParsing="true"/>
-            <MenuItem text="_Settings" onAction="#settingsMenuPressed" mnemonicParsing="true"/>
+        <Menu mnemonicParsing="true" text="_File">
+            <MenuItem mnemonicParsing="true" onAction="#closeMenuPressed" text="_Close"/>
+            <MenuItem mnemonicParsing="true" onAction="#settingsMenuPressed" text="_Settings"/>
         </Menu>
     </MenuBar>
-    <HBox>
-        <VBox>
+    <HBox VBox.vgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS">
             <BorderPane>
                 <left>
                     <Label text="All Users" BorderPane.alignment="CENTER"/>
@@ -26,7 +27,7 @@
             </BorderPane>
             <ListView fx:id="allUsersListView" focusTraversable="false" VBox.vgrow="ALWAYS"/>
         </VBox>
-        <VBox>
+        <VBox HBox.hgrow="ALWAYS">
             <BorderPane>
                 <left>
                     <Label text="New Users" BorderPane.alignment="CENTER"/>
@@ -38,10 +39,11 @@
                     <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
                 </VBox.margin>
             </BorderPane>
-            <ListView fx:id="newUsersListView" focusTraversable="false"/>
+            <ListView fx:id="newUsersListView" focusTraversable="false" VBox.vgrow="ALWAYS"/>
             <StackPane>
-                <Button fx:id="clearButton" onAction="#clearButtonPressed" mnemonicParsing="false" text="Clear"/>
-                <Rectangle fx:id="alertRectangle" visible="false" mouseTransparent="true"/>
+                <Button fx:id="clearButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#clearButtonPressed" text="Clear"/>
+                <Rectangle fx:id="alertRectangle" mouseTransparent="true" visible="false"/>
             </StackPane>
         </VBox>
     </HBox>

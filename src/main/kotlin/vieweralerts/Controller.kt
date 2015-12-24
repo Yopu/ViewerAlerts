@@ -41,7 +41,6 @@ class Controller : Initializable {
         allUsersList.addSizeLabel(allUsersCountLabel)
         newUsersList.addSizeLabel(newUsersCountLabel)
 
-        clearButton.prefWidthProperty().bind(newUsersListView.widthProperty())
         alertRectangle.heightProperty().bind(clearButton.heightProperty())
         alertRectangle.widthProperty().bind(clearButton.widthProperty())
 
