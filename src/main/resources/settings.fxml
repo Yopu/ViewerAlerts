@@ -3,17 +3,26 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="10.0" xmlns="http://javafx.com/javafx/null"
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10.0"
+      xmlns="http://javafx.com/javafx/8.0.40"
       fx:controller="vieweralerts.SettingsController">
     <VBox>
         <Label text="Twitch Channel"/>
         <TextField fx:id="channelTextField" promptText="Channel"/>
     </VBox>
+    <VBox layoutX="25.0" layoutY="25.0">
+        <Label text="Remote Log Server"/>
+        <HBox spacing="5.0">
+            <TextField fx:id="urlTextField" promptText="URL"/>
+            <RadioButton fx:id="urlRadioButton" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false"/>
+        </HBox>
+    </VBox>
     <VBox>
         <Label text="Update Delay (millis)"/>
-        <Spinner fx:id="delaySpinner" editable="true"/>
+        <Spinner fx:id="delaySpinner" editable="true" maxWidth="Infinity"/>
     </VBox>
-    <HBox spacing="10.0">
+    <HBox spacing="5.0">
         <Button text="Cancel" onAction="#cancelClicked" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
         <Button text="Okay" onAction="#okayClicked" defaultButton="true" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
     </HBox>

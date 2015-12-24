@@ -11,7 +11,7 @@ import kotlin.concurrent.read
 import kotlin.concurrent.thread
 import kotlin.concurrent.write
 
-class RemoteLogHandler : Handler() {
+class RemoteLogHandler(val url: String) : Handler() {
 
     val lock = ReentrantReadWriteLock()
     val cache = arrayListOf<LogRecord>()
@@ -44,7 +44,7 @@ class RemoteLogHandler : Handler() {
     fun sendLogRecord(any: LogRecord) {
         val outputStream = ByteArrayOutputStream()
         ObjectOutputStream(outputStream).writeObject(any)
-        "http://yopu.duckdns.org/".httpPost()
+        url.httpPost()
                 .header("Content-Type" to "application/octet-stream")
                 .body(outputStream.toByteArray())
                 .response { request, response, either ->

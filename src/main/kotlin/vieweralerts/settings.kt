@@ -23,7 +23,7 @@ fun promptForSettings(): Settings {
     settingsStage.showAndWait()
 
     if (controller.okayClicked) {
-        val settings = Settings(controller.channel, controller.sleepDuration)
+        val settings = Settings(controller.channel, controller.sleepDuration, controller.remoteURL, controller.remoteLoggingEnabled)
         settings.save(SETTINGS_PATH)
         return settings
     } else {
@@ -36,7 +36,9 @@ fun loadSettings(path: String): Settings? {
         val raw = Yaml().load(File(path).readText()) as Map<*, *>
         val channel = raw["channel"] as String
         val sleepDuration = raw["sleep_duration"] as Int
-        return Settings(channel, sleepDuration)
+        val remoteURL = raw["remote_url"] as String?
+        val remoteLoggingEnabled = raw["remote_logging_enabled"] as Boolean
+        return Settings(channel, sleepDuration, remoteURL, remoteLoggingEnabled)
     } catch (e: Exception) {
         if (e is FileNotFoundException || e is YAMLException || e is ClassCastException)
             log.warning("Failed to load settings: $e")
@@ -49,13 +51,15 @@ fun loadSettings(path: String): Settings? {
 
 class SettingsCancelException : Exception()
 
-data class Settings(val channel: String, val sleepDuration: Int) {
+data class Settings(val channel: String, val sleepDuration: Int, val remoteURL: String?, val remoteLoggingEnabled: Boolean) {
     fun save(path: String) {
-        val dump = Yaml().dumpAs(
-                mapOf("channel" to channel, "sleep_duration" to sleepDuration),
-                Tag.MAP,
-                DumperOptions.FlowStyle.BLOCK
+        val paramMap = mapOf(
+                "channel"                   to channel,
+                "sleep_duration"            to sleepDuration,
+                "remote_url"                to remoteURL,
+                "remote_logging_enabled"    to remoteLoggingEnabled
         )
+        val dump = Yaml().dumpAs(paramMap, Tag.MAP, DumperOptions.FlowStyle.BLOCK)
         File(path).writeText(dump)
     }
 }
