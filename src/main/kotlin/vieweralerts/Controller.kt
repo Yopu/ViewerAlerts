@@ -10,6 +10,7 @@ import javafx.fxml.Initializable
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.ListView
+import javafx.scene.control.ProgressBar
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
 import javafx.util.Duration
@@ -18,7 +19,7 @@ import java.util.*
 
 class Controller : Initializable {
 
-    lateinit var settingsHandler: SettingsHandler
+    lateinit var displayApplication: DisplayApplication
 
     val allUsersList = observableArrayList<String>()
     val newUsersList = observableArrayList<String>()
@@ -33,6 +34,8 @@ class Controller : Initializable {
     @FXML lateinit var clearButton: Button
     @FXML lateinit var alertRectangle: Rectangle
     var transition: FillTransition? = null
+
+    @FXML lateinit var remoteProgressBar: ProgressBar
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         allUsersListView.items = allUsersList
@@ -74,9 +77,14 @@ class Controller : Initializable {
     fun settingsMenuPressed() {
         try {
             val settings = promptForSettings()
-            settingsHandler.handleSettings(settings)
+            displayApplication.handleSettings(settings)
         } catch (e: SettingsCancelException) {
         }
+    }
+
+    fun refreshMenuPressed() {
+        log.info("refresh pressed")
+        displayApplication.runningThread?.restart()
     }
 
     fun clearButtonPressed() {

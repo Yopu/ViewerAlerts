@@ -6,12 +6,15 @@
 <?import javafx.scene.shape.Rectangle?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40"
       fx:controller="vieweralerts.Controller">
-    <MenuBar>
-        <Menu mnemonicParsing="true" text="_File">
-            <MenuItem mnemonicParsing="true" onAction="#closeMenuPressed" text="_Close"/>
-            <MenuItem mnemonicParsing="true" onAction="#settingsMenuPressed" text="_Settings"/>
-        </Menu>
-    </MenuBar>
+    <HBox>
+        <MenuBar HBox.hgrow="ALWAYS">
+            <Menu text="_File" mnemonicParsing="true">
+                <MenuItem text="_Close" mnemonicParsing="true" onAction="#closeMenuPressed"/>
+                <MenuItem text="_Settings" mnemonicParsing="true" onAction="#settingsMenuPressed"/>
+            </Menu>
+        </MenuBar>
+        <Button text="Refresh" onAction="#refreshMenuPressed" focusTraversable="false"/>
+    </HBox>
     <HBox VBox.vgrow="ALWAYS">
         <VBox HBox.hgrow="ALWAYS">
             <BorderPane>
@@ -47,4 +50,5 @@
             </StackPane>
         </VBox>
     </HBox>
+    <ProgressBar fx:id="remoteProgressBar" maxWidth="Infinity"/>
 </VBox>

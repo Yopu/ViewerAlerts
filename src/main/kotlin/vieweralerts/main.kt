@@ -17,7 +17,7 @@ fun main(args: Array<String>) = launch(DisplayApplication::class.java, *args)
 
 fun loader(name: String) = FXMLLoader(ClassLoader.getSystemResource(name))
 
-class DisplayApplication : Application(), SettingsHandler {
+class DisplayApplication : Application() {
 
     lateinit var mainController: Controller
     lateinit var primaryTitle: StringProperty
@@ -32,7 +32,7 @@ class DisplayApplication : Application(), SettingsHandler {
         val vBox = fxmlLoader.load<VBox>()
 
         mainController = fxmlLoader.getController<Controller>()
-        mainController.settingsHandler = this
+        mainController.displayApplication = this
 
         handleSettings(settings)
 
@@ -40,18 +40,16 @@ class DisplayApplication : Application(), SettingsHandler {
         primaryStage.show()
     }
 
-    var runningThread: Thread? = null
-    override fun handleSettings(settings: Settings) {
+    var runningThread: LooperThread? = null
+    fun handleSettings(settings: Settings) {
         if (settings.remoteLoggingEnabled && settings.remoteURL != null)
             log.addHandler(RemoteLogHandler(settings.remoteURL))
 
         runningThread?.interrupt()
         mainController.allUsersList.clear()
         primaryTitle.value = "Viewer Alerts - ${settings.channel}"
-        runningThread = startLooperThread(settings.channel, mainController.allUsersList, settings.sleepDuration)
+        runningThread = LooperThread(settings.channel, mainController.allUsersList, mainController.remoteProgressBar, settings.sleepDuration).apply {
+            start()
+        }
     }
-}
-
-interface SettingsHandler {
-    fun handleSettings(settings: Settings)
 }
